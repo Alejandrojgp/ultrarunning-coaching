@@ -1,5 +1,6 @@
 {
+  "trailingSlash": true,
   "rewrites": [
-    { "source": "/athletes/:athlete/:path*", "destination": "/athletes/:athlete/:path*" }
+    { "source": "/Athletes/:athlete/:path*", "destination": "/Athletes/:athlete/:path*" }
   ]
 }
