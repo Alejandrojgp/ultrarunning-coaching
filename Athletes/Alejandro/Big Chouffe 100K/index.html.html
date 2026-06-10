@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Big Chouffe 100K — Race Day Briefing</title>
+<style>
+@page { size: letter; margin: 0.6in; }
+body { font-family: 'Segoe UI', sans-serif; color: #222; max-width: 8.5in; margin: 0 auto; padding: 20px; font-size: 13px; line-height: 1.4; }
+h1 { color: #1a3c34; margin-bottom: 4px; font-size: 22px; }
+.subtitle { color: #666; margin-bottom: 18px; font-size: 13px; }
+h2 { color: #1a3c34; border-bottom: 2px solid #1a3c34; padding-bottom: 4px; margin-top: 22px; font-size: 16px; }
+h3 { color: #2c5d52; margin-top: 14px; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 12px; }
+th { background: #1a3c34; color: white; padding: 6px 8px; text-align: left; font-weight: 600; }
+td { padding: 5px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:nth-child(even) td { background: #f8f9fa; }
+.target { background: #e8f5e9; padding: 10px 14px; border-left: 4px solid #1a3c34; margin: 12px 0; border-radius: 4px; }
+.warn  { background: #fff3e0; padding: 10px 14px; border-left: 4px solid #f57c00; margin: 12px 0; border-radius: 4px; }
+.danger{ background: #ffebee; padding: 10px 14px; border-left: 4px solid #c62828; margin: 12px 0; border-radius: 4px; }
+.box   { background: #f1f8f5; padding: 10px 14px; border-radius: 6px; margin: 10px 0; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+ul, ol { margin: 6px 0 6px 18px; padding: 0; }
+li { margin-bottom: 2px; }
+.aid-name { font-weight: 600; color: #1a3c34; }
+.pace { font-family: ui-monospace, monospace; color: #006633; font-weight: 600; }
+.section-grid { display: grid; grid-template-columns: 60% 40%; gap: 18px; }
+.kpi { display: inline-block; background: #1a3c34; color: white; padding: 4px 12px; border-radius: 14px; font-weight: 600; font-size: 12px; }
+.checklist li { list-style: none; padding-left: 20px; position: relative; }
+.checklist li:before { content: '☐'; position: absolute; left: 0; font-size: 14px; }
+.tabs { display: flex; gap: 4px; margin: 12px 0 0; border-bottom: 2px solid #1a3c34; }
+.tab-btn { padding: 7px 16px; cursor: pointer; border: 1px solid #ddd; border-bottom: none; background: #f1f8f5; color: #2c5d52; font-weight: 600; font-size: 12px; border-radius: 6px 6px 0 0; }
+.tab-btn.active { background: #1a3c34; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.scenario-line { font-size: 12px; color: #444; margin: 10px 0 2px; }
+@media print { .no-print { display: none; } body { font-size: 11px; } .tab-btn { display: none; } .tabs { border: none; margin: 0; } .tab-panel { display: none !important; } .tab-panel.active { display: block !important; } }
+</style>
+</head>
+<body>
+
+<h1>Big Chouffe 100K — Race Day Briefing</h1>
+<p class="subtitle">
+  Houffalize, Belgium · 2026-07-04 · 101.7 km / 3,150 m gain · Athlete: Alejandro García
+</p>
+
+<div class="target">
+  <strong>Plan to:</strong> <span class="pace">~12:45 (range 12:00–13:30)</span> &nbsp; • &nbsp;
+  <strong>DNF risk:</strong> <span class="kpi" style="background:#f57c00;">YELLOW · 37%</span> &nbsp; • &nbsp;
+  <strong>Crew chief:</strong> Jasmine &nbsp; • &nbsp;
+  <strong>Strategy:</strong> Even effort, fuel 90 g/hr (rehearsed), negative-split the back half
+</div>
+<p style="font-size:11px; color:#666; margin-top:-6px;">
+  Cool day (≤18°C) unlocks ~12:00–12:30; warm day (&gt;24°C) pushes ~13:30–14:00. Gut is locked from the 32 mi / 90 g/hr rehearsal — fuel without fear.
+</p>
+
+<h2>Pacing — Aid station ETAs</h2>
+
+<p>Race starts <strong>06:00 (single wave, headlamp start from Vayamundo)</strong>, 18 h cutoff. Pick a scenario tab below. Cum. time / clock are <em>moving</em> times — add ~10–15 min total for aid-station stops. Give Jasmine a ±25 min window.</p>
+
+<div class="tabs">
+  <div class="tab-btn" data-tab="conservative" onclick="showTab('conservative')">Conservative · ~13:10</div>
+  <div class="tab-btn active" data-tab="realistic" onclick="showTab('realistic')">Realistic · ~12:45</div>
+  <div class="tab-btn" data-tab="optimistic" onclick="showTab('optimistic')">Optimistic · ~11:45</div>
+</div>
+
+<!-- CONSERVATIVE -->
+<div class="tab-panel" data-tab="conservative">
+<p class="scenario-line"><strong>Conservative — finish ~13:10 (≈7:08 PM).</strong> Warm day (~23°C) or a rough patch; VO2max 51. Comfortably inside the 18 h cutoff.</p>
+<table style="font-size:11px;">
+<thead><tr><th>Segment</th><th>Dist</th><th>Gain</th><th>Target pace</th><th>Cum. dist</th><th>Split</th><th>Cum. time (clock)</th><th>Mental cue</th></tr></thead>
+<tbody>
+<tr><td><span class="aid-name">Start → Bonnerue (AS1)</span></td><td>15.6 km<br>9.7 mi</td><td>553 m<br>1,814 ft</td><td class="pace">6:59/km<br>11:14/mi</td><td>15.6 km<br>9.7 mi</td><td>01:48:53</td><td class="pace">01:48:53<br>7:48 AM</td><td>Hold back. Easier than feels right.</td></tr>
+<tr><td><span class="aid-name">Bonnerue → Engreux 1 (AS2)</span></td><td>7.8 km<br>4.8 mi</td><td>253 m<br>830 ft</td><td class="pace">7:00/km<br>11:15/mi</td><td>23.4 km<br>14.5 mi</td><td>00:54:32</td><td class="pace">02:43:25<br>8:43 AM</td><td>Settle into rhythm. First carb check.</td></tr>
+<tr><td><span class="aid-name">Engreux 1 → Warempage (AS3)</span></td><td>13.0 km<br>8.1 mi</td><td>452 m<br>1,483 ft</td><td class="pace">7:49/km<br>12:35/mi</td><td>36.4 km<br>22.6 mi</td><td>01:41:39</td><td class="pace">04:25:05<br>10:25 AM</td><td>HR cap. Conserve. <strong>Drop bag + Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Warempage → Engreux 2 (AS4)</span></td><td>15.7 km<br>9.8 mi</td><td>394 m<br>1,293 ft</td><td class="pace">7:40/km<br>12:20/mi</td><td>52.1 km<br>32.4 mi</td><td>02:00:20</td><td class="pace">06:25:25<br>12:25 PM</td><td>Midpoint. Re-fuel hard. Eat real food.</td></tr>
+<tr><td><span class="aid-name">Engreux 2 → Achouffe (AS5)</span></td><td>17.4 km<br>10.8 mi</td><td>544 m<br>1,785 ft</td><td class="pace">8:17/km<br>13:21/mi</td><td>69.5 km<br>43.2 mi</td><td>02:24:16</td><td class="pace">08:49:42<br>2:49 PM</td><td>Warmest part of day. Cool head, neck. Salt. <strong>Drop bag + Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Achouffe → Vayamundo (AS6)</span></td><td>9.7 km<br>6.0 mi</td><td>312 m<br>1,024 ft</td><td class="pace">8:04/km<br>12:59/mi</td><td>79.2 km<br>49.2 mi</td><td>01:18:12</td><td class="pace">10:07:54<br>4:07 PM</td><td>Last big aid before finish. Restock. <strong>Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Vayamundo → Vissoule (AS7)</span></td><td>10.7 km<br>6.6 mi</td><td>366 m<br>1,201 ft</td><td class="pace">8:25/km<br>13:33/mi</td><td>89.9 km<br>55.9 mi</td><td>01:30:03</td><td class="pace">11:37:58<br>5:37 PM</td><td>30K to go. You've done this.</td></tr>
+<tr><td><span class="aid-name">Vissoule → Finish</span></td><td>11.8 km<br>7.3 mi</td><td>276 m<br>906 ft</td><td class="pace">7:43/km<br>12:24/mi</td><td>101.7 km<br>63.2 mi</td><td>01:30:57</td><td class="pace"><strong>13:08:56<br>7:08 PM</strong></td><td>Spend everything left. Run the flats — like the last 10K of the 32.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- REALISTIC (default) -->
+<div class="tab-panel active" data-tab="realistic">
+<p class="scenario-line"><strong>Realistic — finish ~12:45 (≈6:46 PM). This is the plan-to.</strong> Temperate day (~18°C), VO2max 51 (matches your measured LT pace), solid execution.</p>
+<table style="font-size:11px;">
+<thead><tr><th>Segment</th><th>Dist</th><th>Gain</th><th>Target pace</th><th>Cum. dist</th><th>Split</th><th>Cum. time (clock)</th><th>Mental cue</th></tr></thead>
+<tbody>
+<tr><td><span class="aid-name">Start → Bonnerue (AS1)</span></td><td>15.6 km<br>9.7 mi</td><td>553 m<br>1,814 ft</td><td class="pace">6:48/km<br>10:57/mi</td><td>15.6 km<br>9.7 mi</td><td>01:46:07</td><td class="pace">01:46:07<br>7:46 AM</td><td>Hold back. Easier than feels right.</td></tr>
+<tr><td><span class="aid-name">Bonnerue → Engreux 1 (AS2)</span></td><td>7.8 km<br>4.8 mi</td><td>253 m<br>830 ft</td><td class="pace">6:49/km<br>10:58/mi</td><td>23.4 km<br>14.5 mi</td><td>00:53:07</td><td class="pace">02:39:15<br>8:39 AM</td><td>Settle into rhythm. First carb check.</td></tr>
+<tr><td><span class="aid-name">Engreux 1 → Warempage (AS3)</span></td><td>13.0 km<br>8.1 mi</td><td>452 m<br>1,483 ft</td><td class="pace">7:37/km<br>12:15/mi</td><td>36.4 km<br>22.6 mi</td><td>01:38:57</td><td class="pace">04:18:12<br>10:18 AM</td><td>HR cap. Conserve. <strong>Drop bag + Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Warempage → Engreux 2 (AS4)</span></td><td>15.7 km<br>9.8 mi</td><td>394 m<br>1,293 ft</td><td class="pace">7:27/km<br>12:00/mi</td><td>52.1 km<br>32.4 mi</td><td>01:57:01</td><td class="pace">06:15:13<br>12:15 PM</td><td>Midpoint. Re-fuel hard. Eat real food.</td></tr>
+<tr><td><span class="aid-name">Engreux 2 → Achouffe (AS5)</span></td><td>17.4 km<br>10.8 mi</td><td>544 m<br>1,785 ft</td><td class="pace">8:03/km<br>12:57/mi</td><td>69.5 km<br>43.2 mi</td><td>02:20:06</td><td class="pace">08:35:19<br>2:35 PM</td><td>Warmest part of day. Cool head, neck. Salt. <strong>Drop bag + Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Achouffe → Vayamundo (AS6)</span></td><td>9.7 km<br>6.0 mi</td><td>312 m<br>1,024 ft</td><td class="pace">7:49/km<br>12:35/mi</td><td>79.2 km<br>49.2 mi</td><td>01:15:49</td><td class="pace">09:51:09<br>3:51 PM</td><td>Last big aid before finish. Restock. <strong>Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Vayamundo → Vissoule (AS7)</span></td><td>10.7 km<br>6.6 mi</td><td>366 m<br>1,201 ft</td><td class="pace">8:09/km<br>13:07/mi</td><td>89.9 km<br>55.9 mi</td><td>01:27:14</td><td class="pace">11:18:23<br>5:18 PM</td><td>30K to go. You've done this.</td></tr>
+<tr><td><span class="aid-name">Vissoule → Finish</span></td><td>11.8 km<br>7.3 mi</td><td>276 m<br>906 ft</td><td class="pace">7:28/km<br>12:00/mi</td><td>101.7 km<br>63.2 mi</td><td>01:28:00</td><td class="pace"><strong>12:46:24<br>6:46 PM</strong></td><td>Spend everything left. Run the flats — like the last 10K of the 32.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- OPTIMISTIC -->
+<div class="tab-panel" data-tab="optimistic">
+<p class="scenario-line"><strong>Optimistic — finish ~11:45 (≈5:41 PM).</strong> Cool day (~16°C), top-end fitness (VO2max 55), smooth execution. Everything clicks.</p>
+<table style="font-size:11px;">
+<thead><tr><th>Segment</th><th>Dist</th><th>Gain</th><th>Target pace</th><th>Cum. dist</th><th>Split</th><th>Cum. time (clock)</th><th>Mental cue</th></tr></thead>
+<tbody>
+<tr><td><span class="aid-name">Start → Bonnerue (AS1)</span></td><td>15.6 km<br>9.7 mi</td><td>553 m<br>1,814 ft</td><td class="pace">6:17/km<br>10:07/mi</td><td>15.6 km<br>9.7 mi</td><td>01:38:03</td><td class="pace">01:38:03<br>7:38 AM</td><td>Hold back. Easier than feels right.</td></tr>
+<tr><td><span class="aid-name">Bonnerue → Engreux 1 (AS2)</span></td><td>7.8 km<br>4.8 mi</td><td>253 m<br>830 ft</td><td class="pace">6:17/km<br>10:07/mi</td><td>23.4 km<br>14.5 mi</td><td>00:48:59</td><td class="pace">02:27:03<br>8:27 AM</td><td>Settle into rhythm. First carb check.</td></tr>
+<tr><td><span class="aid-name">Engreux 1 → Warempage (AS3)</span></td><td>13.0 km<br>8.1 mi</td><td>452 m<br>1,483 ft</td><td class="pace">7:00/km<br>11:17/mi</td><td>36.4 km<br>22.6 mi</td><td>01:31:04</td><td class="pace">03:58:08<br>9:58 AM</td><td>HR cap. Conserve. <strong>Drop bag + Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Warempage → Engreux 2 (AS4)</span></td><td>15.7 km<br>9.8 mi</td><td>394 m<br>1,293 ft</td><td class="pace">6:50/km<br>11:00/mi</td><td>52.1 km<br>32.4 mi</td><td>01:47:21</td><td class="pace">05:45:30<br>11:45 AM</td><td>Midpoint. Re-fuel hard. Eat real food.</td></tr>
+<tr><td><span class="aid-name">Engreux 2 → Achouffe (AS5)</span></td><td>17.4 km<br>10.8 mi</td><td>544 m<br>1,785 ft</td><td class="pace">7:21/km<br>11:50/mi</td><td>69.5 km<br>43.2 mi</td><td>02:08:00</td><td class="pace">07:53:31<br>1:53 PM</td><td>Warmest part of day. Cool head, neck. Salt. <strong>Drop bag + Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Achouffe → Vayamundo (AS6)</span></td><td>9.7 km<br>6.0 mi</td><td>312 m<br>1,024 ft</td><td class="pace">7:07/km<br>11:27/mi</td><td>79.2 km<br>49.2 mi</td><td>01:09:00</td><td class="pace">09:02:31<br>3:02 PM</td><td>Last big aid before finish. Restock. <strong>Jasmine.</strong></td></tr>
+<tr><td><span class="aid-name">Vayamundo → Vissoule (AS7)</span></td><td>10.7 km<br>6.6 mi</td><td>366 m<br>1,201 ft</td><td class="pace">7:24/km<br>11:54/mi</td><td>89.9 km<br>55.9 mi</td><td>01:19:09</td><td class="pace">10:21:40<br>4:21 PM</td><td>30K to go. You've done this.</td></tr>
+<tr><td><span class="aid-name">Vissoule → Finish</span></td><td>11.8 km<br>7.3 mi</td><td>276 m<br>906 ft</td><td class="pace">6:45/km<br>10:51/mi</td><td>101.7 km<br>63.2 mi</td><td>01:19:36</td><td class="pace"><strong>11:41:16<br>5:41 PM</strong></td><td>Spend everything left. Run the flats — like the last 10K of the 32.</td></tr>
+</tbody>
+</table>
+</div>
+
+<script>
+function showTab(key){
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===key); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.toggle('active', p.dataset.tab===key); });
+}
+</script>
+
+<p style="font-size:11px; color:#666; margin-top:-4px;">Three engine scenarios at the confirmed 06:00 start. <strong>Realistic (~12:45) is the plan-to.</strong> Weather is the biggest lever — re-run once the forecast locks (T-10, Jun 24) and pick the matching tab.</p>
+
+<div class="section-grid">
+<div>
+
+<h2>Fueling plan</h2>
+<div class="target">
+  <strong>Target:</strong> 90 g carbs/hr · 500–750 ml fluid/hr · 700–850 mg sodium/hr
+</div>
+<p style="font-size:11px; color:#666; margin-top:-4px;">
+  <strong>Rehearsed &amp; proven:</strong> on the 32 mi long run you ran ~90 g/hr carb, ~850 mg/hr sodium, ~1.2 L/hr fluid in Florida heat with zero GI distress — and negative-split it. Belgium will be cooler, so hold carbs at 90 but dial fluid toward 500–600 ml/hr unless it's hot.
+</p>
+
+<h3>Per-hour schedule (race products)</h3>
+<table>
+<thead><tr><th>Source</th><th>Per hr</th><th>g carbs</th><th>mg sodium</th></tr></thead>
+<tbody>
+<tr><td>Maurten Drink Mix 320 (in flask)</td><td>~½ serv</td><td>40</td><td>120</td></tr>
+<tr><td>Precision Fuel 30 gel</td><td>1</td><td>30</td><td>0</td></tr>
+<tr><td>The Feed electrolyte / LMNT in fluid</td><td>~500 ml</td><td>10</td><td>500</td></tr>
+<tr><td>Salt top-up (LMNT/cap if warm)</td><td>as needed</td><td>0</td><td>+200</td></tr>
+<tr><td><strong>Total</strong></td><td></td><td><strong>~90 g</strong></td><td><strong>~750–850 mg</strong></td></tr>
+</tbody>
+</table>
+<p style="font-size:11px; color:#666; margin-top:-4px;">Caffeine: 2× FlyCarbs/caffeinated gel = ~240 mg spread across the day; save one for the last 25K.</p>
+
+<h3>Real food at aid (every 3 hrs)</h3>
+<ul>
+<li><strong>AS3 (Warempage, ~4h):</strong> banana + boiled potato w/ salt</li>
+<li><strong>AS5 (Achouffe, ~8h):</strong> sandwich half + cola (50/50 w/ water)</li>
+<li><strong>AS6 (Vayamundo, ~9h):</strong> broth + rice cake + caffeinated gel</li>
+</ul>
+
+<h3>Gut-failure protocol</h3>
+<div class="warn">
+If GI distress kicks in (cramping, nausea, urge to vomit):
+<ol>
+<li>Stop solid food immediately</li>
+<li>Switch to sports drink only, 200 ml every 15 min</li>
+<li>Walk for 5 min to reset peristalsis</li>
+<li>If symptoms persist 30 min, add ginger chew + cool water on stomach</li>
+<li>Reintroduce gels slowly after symptoms clear; skip real food until next aid</li>
+</ol>
+</div>
+
+</div>
+
+<div>
+
+<h2>Weather thresholds</h2>
+<table>
+<thead><tr><th>Condition</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>WBGT &lt; 18°C (cool)</td><td>Race plan as-is. Add 5 min total.</td></tr>
+<tr><td>WBGT 18–22°C (moderate)</td><td>Plan as-is. Stay on fueling.</td></tr>
+<tr><td>WBGT 22–26°C (warm)</td><td>+0:15 to total. Pre-cool wrists at every aid. Salt +50%.</td></tr>
+<tr><td>WBGT &gt; 26°C (hot)</td><td>+0:30–1:00. Ice in hat/buff at AS3+. Drop pace 5%.</td></tr>
+<tr><td>Heavy rain</td><td>Layer up; quad-burn risk on descents</td></tr>
+<tr><td>Headwind &gt;25 km/h on exposed ridges</td><td>Tuck behind packs when possible</td></tr>
+</tbody>
+</table>
+
+<h2>Mental anchors</h2>
+<div class="box">
+<h3>Pre-race (T-30 min)</h3>
+<ul>
+<li>State your "why" out loud: <strong>"Be your best today."</strong></li>
+<li>Visualize 3 hard moments + how you respond</li>
+<li>4-4-4 box breathing × 5 cycles</li>
+</ul>
+<h3>Mid-race anchor phrase</h3>
+<p style="margin:4px 0; font-size:14px;"><strong>"Steady. Eat. Smile. Forward."</strong></p>
+<p style="font-size:11px; color:#666;">Repeat at every aid station. 4 simple actions.</p>
+<h3>When the brain wants to quit</h3>
+<ol>
+<li>Drink something</li>
+<li>Eat something</li>
+<li>Walk 5 min</li>
+<li>Reassess at next aid, not now</li>
+</ol>
+</div>
+
+<h2>Drop bag — minimum kit</h2>
+<div class="box">
+<ul class="checklist">
+<li>Spare gels (6 per drop)</li>
+<li>2× spare salt caps</li>
+<li>Spare socks (every 50K)</li>
+<li>Headlamp + spare batteries (AS5 onward)</li>
+<li>Light shell (AS3 onward)</li>
+<li>Anti-chafe + blister tape</li>
+<li>Caffeinated gel for last 25K push</li>
+<li>Cash + ID + phone</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<h2>DNF early-warning signals</h2>
+
+<div class="danger">
+<strong>If TWO or more of these show up before AS5, dial back pace 1 min/km for one segment, reassess at next aid:</strong>
+<ul>
+<li>HR climbing on flats at otherwise easy effort</li>
+<li>Can't take in carbs (gels feel disgusting)</li>
+<li>Quads hot 60K out from finish</li>
+<li>Mental focus deteriorating — making poor route-finding decisions</li>
+<li>Stopped sweating in conditions where you should be</li>
+</ul>
+<p><strong>This is not failure.</strong> A pace re-set at AS3 saves the race. Ignoring these signals is what causes DNFs.</p>
+</div>
+
+<h2>Crew plan — Jasmine (crew chief)</h2>
+<div class="box">
+<p style="margin:2px 0 8px;"><strong>Crewed aid stations (planned):</strong> AS3 Warempage (~4:18), AS5 Achouffe (~8:35), AS6 Vayamundo (~9:51). <span style="color:#c62828;">⚠ Confirm against official Big Chouffe rules which stations permit crew + drop bags — adjust this list before race week.</span></p>
+<p style="margin:2px 0;"><strong>At each meet:</strong> swap flasks (pre-mixed Maurten + electrolyte), hand fresh gels, salt top-up, ice/cool cloth if warm, one sentence on how he feels. Keep stops &lt; 90 sec at AS3/AS6, up to 3 min at AS5 (real food).</p>
+<h3>Hand-signal codes</h3>
+<ul>
+<li><strong>"GREEN":</strong> on plan, hold pace</li>
+<li><strong>"YELLOW":</strong> behind plan but feeling OK, hold and assess at next aid</li>
+<li><strong>"RED":</strong> something is wrong, give me 60 seconds at next aid</li>
+<li><strong>"STOP":</strong> dropping. Don't argue. Get me to medical or vehicle.</li>
+</ul>
+</div>
+
+<h2>Travel &amp; arrival logistics</h2>
+<div class="box">
+<ul>
+<li><strong>Jun 30 (Tue):</strong> Evening flight Newark → Brussels (United) with Jasmine + Lola. Easy 3–4 mi shakeout before airport; compression socks, hydrate, start shifting sleep earlier.</li>
+<li><strong>Jul 1 (Wed):</strong> Arrive AM, base in Gembloux. 20–30 min very easy jog + walk to flush travel legs. Get <strong>morning sunlight</strong> — you're 6 h ahead of Florida; anchor the new clock fast.</li>
+<li><strong>Jul 2 (Thu):</strong> Easy 4–5 mi + 4–6 strides. Normal meals on Belgian time. Lights out early.</li>
+<li><strong>Jul 3 (Fri):</strong> Drive Gembloux → Houffalize, check into hotel near the start. 20 min shakeout on/near course + 3–4 strides. Drop-bag prep, bib pickup, gear lay-out.</li>
+<li><strong>Jul 4 (Sat):</strong> RACE. Early start will feel like the middle of the night on Florida time — expect it, caffeine plan accounts for it.</li>
+</ul>
+<p style="font-size:11px; color:#666;"><strong>Jet lag:</strong> 3 days on-site blunts the worst of a 6 h shift. Prioritize the first night's sleep; morning light + an earlier bedtime in the final pre-travel days does most of the work. <strong>Heat:</strong> you arrive fully Florida-acclimated — a cool Ardennes day is pure upside; no taper of heat exposure needed.</p>
+</div>
+
+<h2>Post-race checklist (first 30 min)</h2>
+<div class="box">
+<ul class="checklist">
+<li>Sit down, get warm/dry layers on within 5 min</li>
+<li>200 mL recovery drink + 1 banana within 15 min</li>
+<li>Note: predicted vs actual finish (for back-test refinement)</li>
+<li>Subjective "primary limiter" — heat, fueling, mental, terrain, fitness, none</li>
+<li>Photos of feet for blister documentation</li>
+<li>Hydrate + small meal within 60 min</li>
+</ul>
+</div>
+
+<hr style="margin-top: 24px; border: 0; border-top: 1px solid #ddd;">
+<p style="font-size: 10px; color: #999; text-align: center;">
+Updated 2026-06-09 by UltraCoach race-prediction engine v0.6. <br>
+Athlete profile: VO2max 51–55, LT 7:43/mi (166 bpm), CP 351 W, CTL 100, CS 4:27–4:36/km, mountain skill 1.02, weekly vert 298 m (incl. treadmill incline). Gut readiness 100 (90 g/hr rehearsed on 32 mi). Durability proven: 32 mi negative split, final 10 K @ 8:32/mi in heat. <br>
+Course data: tracedetrail.fr/en/trace/323615.
+</p>
+
+</body>
+</html>
