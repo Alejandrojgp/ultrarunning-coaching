@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaylee Frederick F21 — Race History (Editable)</title>
+<style>
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f8f9fa; color:#333; padding:20px; margin:0; }
+h1 { color:#1a3c34; margin-bottom:5px; }
+.header { display:flex; align-items:center; justify-content:space-between; padding:14px 22px; background:#1a3c34; color:white; border-radius:8px; margin-bottom:14px; }
+.card { background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:20px; margin-bottom:18px; }
+.card h2 { margin:0 0 14px; color:#1a3c34; font-size:18px; }
+.field-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+.field { display:flex; flex-direction:column; gap:4px; }
+.field label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px; }
+input,select,textarea { padding:8px 10px; border:1px solid #ccd; border-radius:4px; font-size:13px; font-family:inherit; background:#fff; }
+input:focus,select:focus,textarea:focus { outline:1px solid #1a3c34; border-color:#1a3c34; }
+.flag { background:#fff8e1; border-left:4px solid #f0ad4e; padding:12px 16px; border-radius:6px; font-size:13px; line-height:1.6; margin-bottom:14px; }
+table { width:100%; border-collapse:collapse; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; }
+th { background:#1a3c34; color:white; padding:10px 8px; text-align:left; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+td { padding:8px; border-bottom:1px solid #eee; vertical-align:top; font-size:13px; }
+tr:nth-child(even) { background:#f8f9fa; }
+tr.dnf { background:#fff0f0; }
+.race-name { font-weight:600; color:#1a3c34; }
+.date { color:#006633; font-weight:500; white-space:nowrap; }
+.badges { color:#a06000; font-size:11px; }
+td input,td select,td textarea { width:100%; font-size:12px; padding:5px 6px; }
+.legend { background:#f1f8f5; padding:12px 16px; border-radius:6px; font-size:13px; line-height:1.6; margin-bottom:14px; }
+.legend code { background:#1a3c34; color:#fff; padding:1px 6px; border-radius:3px; font-size:11px; }
+.actions { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; align-items:center; }
+button { background:#1a3c34; color:white; border:0; padding:10px 18px; border-radius:5px; cursor:pointer; font-size:14px; font-weight:500; }
+button.secondary { background:#888; }
+button:hover { opacity:0.9; }
+pre.output { background:#0b1220; color:#e2e8f0; padding:14px; border-radius:6px; font-family:ui-monospace,monospace; font-size:12px; max-height:400px; overflow:auto; margin-top:16px; }
+.col-conditions,.col-effort,.col-fueling { min-width:150px; }
+</style>
+</head>
+<body>
+
+<a href="../index.html" style="display:inline-flex;align-items:center;gap:7px;font-family:'Segoe UI',Tahoma,sans-serif;font-size:13px;color:#1a3c34;text-decoration:none;margin-bottom:12px;font-weight:600;">← Back to the Eastern States 100 race plan</a>
+
+<div class="header">
+  <div>
+    <h1 style="color:white;">Kaylee Frederick</h1>
+    <p style="margin:0; opacity:0.9;">F21 • 44 Races • Editable for prediction-engine calibration</p>
+  </div>
+  <div style="text-align:right;">
+    <p style="margin:0; font-size:1.1em;">3,275 lifetime miles</p>
+    <p style="margin:0;">6y 11m of racing</p>
+  </div>
+</div>
+
+<div class="flag"><strong>⚠ Rival benchmark — physiology block empty.</strong> Kaylee is a public-data athlete (not coached by us), kept for Justyna head-to-head strategy. Her engine profile (CS 3.85/km, climb 1.08, descent 1.15) was calibrated from the 2026 Worlds End splits — see the bias-removed back-test.</div>
+
+<div class="card">
+  <h2>Athlete profile (current — fill when available)</h2>
+  <div class="field-grid">
+    <div class="field"><label>VO2max now</label><input id="vo2-now" placeholder="e.g. 52"></div>
+    <div class="field"><label>VO2max 3 mo ago</label><input id="vo2-3mo" placeholder="e.g. 50"></div>
+    <div class="field"><label>VO2max peak</label><input id="vo2-peak" placeholder="e.g. 55"></div>
+    <div class="field"><label>Lactate threshold</label><input id="lt" placeholder="e.g. 8:30/mi"></div>
+    <div class="field"><label>Critical Power</label><input id="cp" placeholder="e.g. 230W"></div>
+    <div class="field"><label>Weight (kg)</label><input id="weight" placeholder="e.g. 58"></div>
+    <div class="field"><label>Home altitude (m)</label><input id="home-alt" placeholder="e.g. 40"></div>
+    <div class="field"><label>Resting HR</label><input id="rhr" placeholder="e.g. 46"></div>
+    <div class="field"><label>Max HR</label><input id="maxhr" placeholder="e.g. 172"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>How to fill the race rows</h2>
+  <div class="legend">
+    <strong>Conditions:</strong> min/max temp + humidity. E.g. <code>65–85°F, 75% RH</code><br>
+    <strong>Best recent effort:</strong> within ~6 weeks of the race. E.g. <code>5K 22:00 (Apr 10)</code> OR <code>20 mi @ 9:30/mi</code><br>
+    <strong>CTL state:</strong> <code>Peak</code> / <code>In shape</code> / <code>Undertrained</code> / <code>Detrained</code><br>
+    <strong>Fueling:</strong> if planned: hydration + carbs e.g. <code>500ml/hr, 70g/hr</code>. If not: rate it e.g. <code>N - Good</code>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Race</th><th>Date</th><th>Dist</th><th>Result</th><th>O'all</th><th>Div</th>
+      <th class="col-conditions">Conditions</th><th class="col-effort">Best recent effort</th><th>CTL</th><th class="col-fueling">Fueling</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<div class="card" style="margin-top:18px;">
+  <h2>Notes</h2>
+  <textarea id="notes" rows="5" style="width:100%; font-family:inherit; font-size:13px;"></textarea>
+</div>
+
+<div class="actions">
+  <button onclick="exportJSON()">Export JSON</button>
+  <span id="save-indicator" style="margin-left:6px; font-size:12px; color:#666; opacity:0.4; transition:opacity 0.3s;">Auto-save enabled</span>
+  <button class="secondary" onclick="exportCSV()">Export CSV</button>
+  <button class="secondary" onclick="saveLocal()">Save (browser)</button>
+  <button class="secondary" onclick="loadLocal()">Reload last save</button>
+</div>
+
+<pre id="output" class="output" style="display:none;"></pre>
+
+<p style="text-align:center; margin-top:30px; color:#666; font-size:0.9em;">Race data from UltraRunning.com • Editable template generated June 23, 2026</p>
+
+<script>
+const RACES = [
+  { race:"Worlds End Ultras 100K \u2014 Forksville, PA", date:"2026-05-30", dist:"100 KM", result:"12:24:28", dnf:false, overall:"2/131", div:"F 1/21", badges:"1st female \u00b7 COURSE RECORD \u00b7 100K PR" },
+  { race:"Hyner Trail Challenge 50K \u2014 Hyner, PA", date:"2026-04-18", dist:"50 KM", result:"5:34:25", dnf:false, overall:"26/391", div:"F 5/94", badges:"50K PR" },
+  { race:"Jackpot Ultra 100M \u2014 Henderson, NV", date:"2026-02-20", dist:"100 Miles", result:"14:49:08", dnf:false, overall:"8/24", div:"F 2/6", badges:"100mi PR \u00b7 flat fast course" },
+  { race:"IAU 24hr World Championships", date:"2025-10-18", dist:"24 Hours", result:"147.66 mi", dnf:false, overall:"54/363", div:"F 12/161", badges:"24hr PR \u00b7 USA team" },
+  { race:"Pine Creek Challenge 50M \u2014 Wellsboro, PA", date:"2025-09-06", dist:"50 Miles", result:"7:29:00", dnf:false, overall:"1/46", div:"F 1/19", badges:"1st overall-ish \u00b7 50mi PR" },
+  { race:"Baker Trail UltraChallenge 50M \u2014 Pittsburgh, PA", date:"2025-08-23", dist:"50 Miles", result:"11:31:30", dnf:false, overall:"27/92", div:"F 13/46", badges:"" },
+  { race:"Badwater 135 \u2014 Death Valley, CA", date:"2025-07-07", dist:"135 Miles", result:"31:54:46", dnf:false, overall:"23/93", div:"F 6/30", badges:"extreme heat" },
+  { race:"Laurel Highlands 70.5M \u2014 Ohiopyle, PA", date:"2025-06-14", dist:"70.5 Miles", result:"13:12:09", dnf:false, overall:"5/122", div:"F 2/22", badges:"" },
+  { race:"Hills Creek Endurance 6hr \u2014 Wellsboro, PA", date:"2025-05-03", dist:"6 Hours", result:"39 mi", dnf:false, overall:"1/12", div:"F 1/5", badges:"1st" },
+  { race:"Badwater Salton Sea 81M \u2014 Borrego Springs, CA", date:"2025-04-26", dist:"81 Miles", result:"19:12:53", dnf:false, overall:"2/44", div:"F 3/18", badges:"heat" },
+  { race:"Badwater Cape Fear 51.4M \u2014 Bald Head Island, NC", date:"2025-03-22", dist:"51.4 Miles", result:"8:17:00", dnf:false, overall:"5/77", div:"F 1/18", badges:"1st female" },
+  { race:"Fat Ox 24hr \u2014 Buckeye, AZ", date:"2024-11-23", dist:"24 Hours", result:"136.05 mi", dnf:false, overall:"4/32", div:"F 2/16", badges:"" },
+  { race:"Hainesport Endurance 24hr \u2014 Hainesport, NJ", date:"2024-10-12", dist:"24 Hours", result:"125.89 mi", dnf:false, overall:"1/25", div:"F 1/13", badges:"1st" },
+  { race:"Baker Trail UltraChallenge 50M \u2014 Pittsburgh, PA", date:"2024-08-24", dist:"50 Miles", result:"10:17:45", dnf:false, overall:"17/99", div:"F 5/44", badges:"" },
+  { race:"Badwater 135 \u2014 Death Valley, CA", date:"2024-07-22", dist:"135 Miles", result:"36:13:31", dnf:false, overall:"25/74", div:"F 8/26", badges:"heat" },
+  { race:"Laurel Highlands 70.5M \u2014 Ohiopyle, PA", date:"2024-06-08", dist:"70.5 Miles", result:"13:23:45", dnf:false, overall:"7/132", div:"F 2/27", badges:"" },
+  { race:"Keys Ultras 100M \u2014 Key West, FL", date:"2024-05-18", dist:"100 Miles", result:"30:14:28", dnf:false, overall:"51/87", div:"F 17/24", badges:"flat/heat" },
+  { race:"Badwater Salton Sea 81M \u2014 Borrego Springs, CA", date:"2024-04-27", dist:"81 Miles", result:"21:41:00", dnf:false, overall:"18/49", div:"F 6/17", badges:"" },
+  { race:"Badwater Cape Fear 51.4M \u2014 Bald Head Island, NC", date:"2024-03-23", dist:"51.4 Miles", result:"8:12:38", dnf:false, overall:"4/90", div:"F 1/19", badges:"1st female" },
+  { race:"Bigfoot 50K \u2014 Lore City, OH", date:"2023-12-09", dist:"50 KM", result:"6:44:53", dnf:false, overall:"40/94", div:"F 5/18", badges:"" },
+  { race:"Stone Mill 50M \u2014 Montgomery Village, MD", date:"2023-11-11", dist:"50 Miles", result:"10:19:04", dnf:false, overall:"41/171", div:"F 6/56", badges:"" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2023-10-22", dist:"50 Miles", result:"10:27:21", dnf:false, overall:"31/41", div:"F 7/13", badges:"" },
+  { race:"Hainesport Endurance 100M \u2014 Hainesport, NJ", date:"2023-10-07", dist:"100 Miles", result:"18:10:03", dnf:false, overall:"2/20", div:"F 1/6", badges:"flat 100mi female CR" },
+  { race:"Black Forest 100K \u2014 North Bend, PA", date:"2023-10-01", dist:"100 KM", result:"17:33:51", dnf:false, overall:"36/56", div:"F 9/13", badges:"PA technical" },
+  { race:"Pine Creek Challenge 100M \u2014 Wellsboro, PA", date:"2023-09-09", dist:"100 Miles", result:"22:34:46", dnf:false, overall:"9/35", div:"F 4/8", badges:"" },
+  { race:"Baker Trail UltraChallenge 50M \u2014 Pittsburgh, PA", date:"2023-08-26", dist:"50 Miles", result:"13:17:22", dnf:false, overall:"73/96", div:"F 34/44", badges:"" },
+  { race:"Eastern States 100 \u2014 Waterville, PA", date:"2023-08-12", dist:"100 Miles", result:"34:45:43", dnf:false, overall:"97/131", div:"F 15/21", badges:"same course as ES100 target" },
+  { race:"Badwater 135 \u2014 Death Valley, CA", date:"2023-07-04", dist:"135 Miles", result:"40:06:43", dnf:false, overall:"53/89", div:"F 19/34", badges:"youngest finisher ever (age 18)" },
+  { race:"Laurel Highlands 70.5M \u2014 Ohiopyle, PA", date:"2023-06-10", dist:"70.5 Miles", result:"15:32:10", dnf:false, overall:"14/109", div:"F 3/26", badges:"" },
+  { race:"Worlds End Ultras 100K \u2014 Forksville, PA", date:"2023-06-03", dist:"100 KM", result:"17:04:46", dnf:false, overall:"52/104", div:"F 10/25", badges:"PRIOR Worlds End (pre-improvement)" },
+  { race:"Badwater Salton Sea 81M \u2014 Borrego Springs, CA", date:"2023-04-29", dist:"81 Miles", result:"24:57:00", dnf:false, overall:"41/53", div:"F 18/25", badges:"" },
+  { race:"Hyner Trail Challenge 50K \u2014 Hyner, PA", date:"2023-04-22", dist:"50 KM", result:"7:18:08", dnf:false, overall:"179/343", div:"F 32/85", badges:"" },
+  { race:"Badwater Cape Fear 51.4M \u2014 Bald Head Island, NC", date:"2023-03-18", dist:"51.4 Miles", result:"10:05:00", dnf:false, overall:"36/103", div:"F 11/31", badges:"" },
+  { race:"Mid-Maryland Ultra 50K \u2014 Elkridge, MD", date:"2023-02-18", dist:"50 KM", result:"5:50:21", dnf:false, overall:"40/87", div:"F 9/32", badges:"" },
+  { race:"Eternal Winter 6hr \u2014 Annapolis, MD", date:"2023-01-29", dist:"6 Hours", result:"37 mi", dnf:false, overall:"2/11", div:"F 1/2", badges:"" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2022-10-16", dist:"50 Miles", result:"9:24:29", dnf:false, overall:"13/35", div:"F 3/8", badges:"" },
+  { race:"Buckeye Ultra 200M \u2014 Wellsville, OH", date:"2022-09-29", dist:"203 Miles", result:"89:50:07", dnf:false, overall:"12/27", div:"F 4/6", badges:"multiday" },
+  { race:"C&O Canal 100M \u2014 Knoxville, MD", date:"2022-04-30", dist:"100 Miles", result:"23:14:39", dnf:false, overall:"20/89", div:"F 5/27", badges:"flat towpath" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2021-10-31", dist:"50 Miles", result:"8:50:03", dnf:false, overall:"20/54", div:"F 3/15", badges:"" },
+  { race:"Pine Creek Challenge 100M \u2014 Wellsboro, PA", date:"2021-09-11", dist:"100 Miles", result:"27:37:32", dnf:false, overall:"46/63", div:"F 10/14", badges:"early 100mi" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2020-10-11", dist:"50 Miles", result:"9:34:20", dnf:false, overall:"27/58", div:"F 5/12", badges:"" },
+  { race:"Ghost Town Trail Challenge 50K \u2014 Blairsville, PA", date:"2020-08-22", dist:"50 KM", result:"5:43:39", dnf:false, overall:"25/128", div:"F 9/59", badges:"" },
+  { race:"Pine Creek Challenge 50M \u2014 Wellsboro, PA", date:"2019-09-07", dist:"50 Miles", result:"11:20:43", dnf:false, overall:"9/23", div:"F 5/7", badges:"debut season" },
+  { race:"Ghost Town Trail Challenge 50K \u2014 Blairsville, PA", date:"2019-06-15", dist:"50 KM", result:"8:27:37", dnf:false, overall:"74/154", div:"F 33/89", badges:"first ultra" }
+];
+const PREFILL_NOTES = "RIVAL BENCHMARK athlete (not coached by us) \u2014 kept for Justyna head-to-head strategy. PHYSIOLOGY BLOCK EMPTY (public-data athlete). PRs: 100mi 14:49:08 (Jackpot 2026, flat) \u00b7 100K 12:24:28 (Worlds End 2026, CR) \u00b7 50mi 7:29:00 (2025) \u00b7 50K 5:34:25 (2026) \u00b7 24hr 147.66mi (2025). Age 21 (F21), Pittsburgh PA. 44 races, 6y11m, 3,275 lifetime miles. Badwater-tested (full heat), strong descender, improving fast YoY. Source: UltraRunning.com calendar (verified). ENGINE NOTE: current Kaylee profile (CS 3.85/km, climb_skill 1.08, descent_skill 1.15) was calibrated FROM the 2026 Worlds End splits \u2014 i.e. partly overfit to the race we predict. See kaylee-worlds-end-backtest for a bias-removed validation.";
+
+function el(tag, attrs = {}, children = []) {
+  const e = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v]) => {
+    if (k === 'class') e.className = v;
+    else if (k === 'value') e.value = v;
+    else if (k === 'text') e.textContent = v;
+    else e.setAttribute(k, v);
+  });
+  children.forEach(c => e.appendChild(c));
+  return e;
+}
+
+function renderRows() {
+  const tbody = document.getElementById('rows');
+  tbody.innerHTML = '';
+  RACES.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    if (r.dnf) tr.className = 'dnf';
+    const tdRace = el('td', { class:'race-name' });
+    tdRace.textContent = r.race + (r.dnf ? '  (DNF)' : '');
+    if (r.badges) { const b = el('div', { class:'badges', text:r.badges }); tdRace.appendChild(b); }
+    tr.appendChild(tdRace);
+    tr.appendChild(el('td', { class:'date', text:r.date }));
+    tr.appendChild(el('td', { text:r.dist }));
+    tr.appendChild(el('td', { text:r.result }));
+    tr.appendChild(el('td', { text:r.overall }));
+    tr.appendChild(el('td', { text:r.div }));
+    const tdCond = el('td'); tdCond.appendChild(el('input', { 'data-field':'conditions','data-idx':i, placeholder:'65–85°F, 75% RH' })); tr.appendChild(tdCond);
+    const tdEff = el('td'); tdEff.appendChild(el('input', { 'data-field':'effort','data-idx':i, placeholder:'5K 22:00 (date)' })); tr.appendChild(tdEff);
+    const tdCtl = el('td'); const sel = document.createElement('select'); sel.dataset.field='ctl'; sel.dataset.idx=i;
+    ['','Peak','In shape','Undertrained','Detrained'].forEach(o => { const opt=document.createElement('option'); opt.value=o; opt.text=o||'—'; sel.appendChild(opt); });
+    tdCtl.appendChild(sel); tr.appendChild(tdCtl);
+    const tdFuel = el('td'); tdFuel.appendChild(el('input', { 'data-field':'fueling','data-idx':i, placeholder:'500ml/hr, 70g/hr  or  N - Good' })); tr.appendChild(tdFuel);
+    tbody.appendChild(tr);
+  });
+}
+
+function readInputs() {
+  const races = RACES.map(r => ({ ...r, conditions:'', effort:'', ctl:'', fueling:'' }));
+  document.querySelectorAll('[data-field]').forEach(elx => { races[+elx.dataset.idx][elx.dataset.field] = elx.value; });
+  const athlete = { vo2max_now:val('vo2-now'), vo2max_3mo_ago:val('vo2-3mo'), vo2max_peak:val('vo2-peak'),
+    lactate_threshold:val('lt'), critical_power:val('cp'), weight_kg:val('weight'),
+    home_altitude_m:val('home-alt'), resting_hr:val('rhr'), max_hr:val('maxhr') };
+  return { athlete, races, notes:val('notes') };
+}
+function val(id) { return document.getElementById(id).value; }
+
+function exportJSON() {
+  const data = readInputs();
+  const blob = new Blob([JSON.stringify(data,null,2)], { type:'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'kaylee-race-history-' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+  const out = document.getElementById('output'); out.textContent = JSON.stringify(data,null,2);
+  out.style.display = 'block'; window.scrollTo({ top: out.offsetTop, behavior:'smooth' });
+}
+function exportCSV() {
+  const d = readInputs();
+  const cols = ['race','date','dist','result','overall','div','conditions','effort','ctl','fueling'];
+  const csv = cols.join(',') + '\n' + d.races.map(r => cols.map(c => '"' + (r[c]||'').toString().replace(/"/g,'""') + '"').join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'kaylee-race-history-' + new Date().toISOString().slice(0,10) + '.csv'; a.click();
+}
+function saveLocal() { localStorage.setItem('kf_race_history', JSON.stringify(readInputs())); alert('Saved to browser localStorage.'); }
+function loadLocal() {
+  const s = localStorage.getItem('kf_race_history'); if (!s) { alert('No saved data found.'); return; }
+  const d = JSON.parse(s);
+  d.races.forEach((r,i) => ['conditions','effort','ctl','fueling'].forEach(f => { const e=document.querySelector(`[data-field="${f}"][data-idx="${i}"]`); if(e) e.value=r[f]||''; }));
+  if (d.athlete) { const map={vo2max_now:'vo2-now',vo2max_3mo_ago:'vo2-3mo',vo2max_peak:'vo2-peak',lactate_threshold:'lt',critical_power:'cp',weight_kg:'weight',home_altitude_m:'home-alt',resting_hr:'rhr',max_hr:'maxhr'};
+    Object.entries(d.athlete).forEach(([k,v]) => { const id=map[k]; if(id) document.getElementById(id).value=v; }); }
+  if (d.notes) document.getElementById('notes').value = d.notes;
+}
+
+renderRows();
+document.getElementById('notes').value = PREFILL_NOTES;
+window.addEventListener('DOMContentLoaded', () => { if (localStorage.getItem('kf_race_history')) { try { loadLocal(); } catch(e) { console.warn(e); } } });
+let _t=null;
+document.body.addEventListener('input', () => { clearTimeout(_t); _t=setTimeout(() => { localStorage.setItem('kf_race_history', JSON.stringify(readInputs()));
+  const ind=document.getElementById('save-indicator'); if(ind){ ind.textContent='Saved '+new Date().toLocaleTimeString(); ind.style.opacity='1'; setTimeout(()=>ind.style.opacity='0.4',1500); } }, 400); });
+document.body.addEventListener('change', () => { clearTimeout(_t); _t=setTimeout(() => localStorage.setItem('kf_race_history', JSON.stringify(readInputs())), 200); });
+</script>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Justyna Wilson F51 — Race History (Editable)</title>
+<style>
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f8f9fa; color:#333; padding:20px; margin:0; }
+h1 { color:#1a3c34; margin-bottom:5px; }
+.header { display:flex; align-items:center; justify-content:space-between; padding:14px 22px; background:#1a3c34; color:white; border-radius:8px; margin-bottom:14px; }
+.card { background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:20px; margin-bottom:18px; }
+.card h2 { margin:0 0 14px; color:#1a3c34; font-size:18px; }
+.field-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+.field { display:flex; flex-direction:column; gap:4px; }
+.field label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px; }
+input,select,textarea { padding:8px 10px; border:1px solid #ccd; border-radius:4px; font-size:13px; font-family:inherit; background:#fff; }
+input:focus,select:focus,textarea:focus { outline:1px solid #1a3c34; border-color:#1a3c34; }
+.flag { background:#fff8e1; border-left:4px solid #f0ad4e; padding:12px 16px; border-radius:6px; font-size:13px; line-height:1.6; margin-bottom:14px; }
+table { width:100%; border-collapse:collapse; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.06); border-radius:8px; overflow:hidden; }
+th { background:#1a3c34; color:white; padding:10px 8px; text-align:left; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+td { padding:8px; border-bottom:1px solid #eee; vertical-align:top; font-size:13px; }
+tr:nth-child(even) { background:#f8f9fa; }
+tr.dnf { background:#fff0f0; }
+.race-name { font-weight:600; color:#1a3c34; }
+.date { color:#006633; font-weight:500; white-space:nowrap; }
+.badges { color:#a06000; font-size:11px; }
+td input,td select,td textarea { width:100%; font-size:12px; padding:5px 6px; }
+.legend { background:#f1f8f5; padding:12px 16px; border-radius:6px; font-size:13px; line-height:1.6; margin-bottom:14px; }
+.legend code { background:#1a3c34; color:#fff; padding:1px 6px; border-radius:3px; font-size:11px; }
+.actions { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; align-items:center; }
+button { background:#1a3c34; color:white; border:0; padding:10px 18px; border-radius:5px; cursor:pointer; font-size:14px; font-weight:500; }
+button.secondary { background:#888; }
+button:hover { opacity:0.9; }
+pre.output { background:#0b1220; color:#e2e8f0; padding:14px; border-radius:6px; font-family:ui-monospace,monospace; font-size:12px; max-height:400px; overflow:auto; margin-top:16px; }
+.col-conditions,.col-effort,.col-fueling { min-width:150px; }
+</style>
+</head>
+<body>
+
+<a href="../index.html" style="display:inline-flex;align-items:center;gap:7px;font-family:'Segoe UI',Tahoma,sans-serif;font-size:13px;color:#1a3c34;text-decoration:none;margin-bottom:12px;font-weight:600;">← Back to the Eastern States 100 race plan</a>
+
+<div class="header">
+  <div>
+    <h1 style="color:white;">Justyna Wilson</h1>
+    <p style="margin:0; opacity:0.9;">F51 • 52 Races • Editable for prediction-engine calibration</p>
+  </div>
+  <div style="text-align:right;">
+    <p style="margin:0; font-size:1.1em;">2,693 lifetime miles</p>
+    <p style="margin:0;">10y 8m of racing</p>
+  </div>
+</div>
+
+<div class="flag">
+  <strong>⚠ Physiology block is empty.</strong> We have no VO2max / lactate-threshold / weight / RHR for Justyna — her engine
+  profile was derived from race <em>results</em> only. Fill below from her own data, or sync Strava/Garmin
+  (same path as <code style="background:#1a3c34;color:#fff;padding:1px 6px;border-radius:3px;">garmin/garmin_sync.py</code>) to auto-derive.
+  <br>2025 Eastern States finish: <strong>24:49:36</strong> (confirmed 2026-06-23).
+</div>
+
+<div class="card">
+  <h2>Athlete profile (current — fill when available)</h2>
+  <div class="field-grid">
+    <div class="field"><label>VO2max now</label><input id="vo2-now" placeholder="e.g. 52"></div>
+    <div class="field"><label>VO2max 3 mo ago</label><input id="vo2-3mo" placeholder="e.g. 50"></div>
+    <div class="field"><label>VO2max peak</label><input id="vo2-peak" placeholder="e.g. 55"></div>
+    <div class="field"><label>Lactate threshold</label><input id="lt" placeholder="e.g. 8:30/mi"></div>
+    <div class="field"><label>Critical Power</label><input id="cp" placeholder="e.g. 230W"></div>
+    <div class="field"><label>Weight (kg)</label><input id="weight" placeholder="e.g. 58"></div>
+    <div class="field"><label>Home altitude (m)</label><input id="home-alt" placeholder="e.g. 40"></div>
+    <div class="field"><label>Resting HR</label><input id="rhr" placeholder="e.g. 46"></div>
+    <div class="field"><label>Max HR</label><input id="maxhr" placeholder="e.g. 172"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>How to fill the race rows</h2>
+  <div class="legend">
+    <strong>Conditions:</strong> min/max temp + humidity. E.g. <code>65–85°F, 75% RH</code><br>
+    <strong>Best recent effort:</strong> within ~6 weeks of the race. E.g. <code>5K 22:00 (Apr 10)</code> OR <code>20 mi @ 9:30/mi</code><br>
+    <strong>CTL state:</strong> <code>Peak</code> / <code>In shape</code> / <code>Undertrained</code> / <code>Detrained</code><br>
+    <strong>Fueling:</strong> if planned: hydration + carbs e.g. <code>500ml/hr, 70g/hr</code>. If not: rate it e.g. <code>N - Good</code>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Race</th><th>Date</th><th>Dist</th><th>Result</th><th>O'all</th><th>Div</th>
+      <th class="col-conditions">Conditions</th><th class="col-effort">Best recent effort</th><th>CTL</th><th class="col-fueling">Fueling</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<div class="card" style="margin-top:18px;">
+  <h2>Notes</h2>
+  <textarea id="notes" rows="5" style="width:100%; font-family:inherit; font-size:13px;"></textarea>
+</div>
+
+<div class="actions">
+  <button onclick="exportJSON()">Export JSON</button>
+  <span id="save-indicator" style="margin-left:6px; font-size:12px; color:#666; opacity:0.4; transition:opacity 0.3s;">Auto-save enabled</span>
+  <button class="secondary" onclick="exportCSV()">Export CSV</button>
+  <button class="secondary" onclick="saveLocal()">Save (browser)</button>
+  <button class="secondary" onclick="loadLocal()">Reload last save</button>
+</div>
+
+<pre id="output" class="output" style="display:none;"></pre>
+
+<p style="text-align:center; margin-top:30px; color:#666; font-size:0.9em;">Race data from UltraRunning.com + Manitou 2026 • Editable template generated June 23, 2026</p>
+
+<script>
+const RACES = [
+  { race:"Manitou's Revenge 54M \u2014 Tannersville, NY", date:"2026-06-20", dist:"54 Miles", result:"12:29:09", dnf:false, overall:"\u2014", div:"F 1/?", badges:"1st female \u00b7 NEW COURSE FEMALE RECORD (Garmin: 49.5mi /+14,605ft)" },
+  { race:"Promise Land 50K \u2014 Lynchburg, VA", date:"2026-04-25", dist:"50 KM", result:"5:53:48", dnf:false, overall:"25/343", div:"F 5/96", badges:"Grand Master CR \u00b7 Masters winner" },
+  { race:"Bull Run Run 50M \u2014 Clifton, VA", date:"2026-04-04", dist:"50 Miles", result:"8:39:16", dnf:false, overall:"4/89", div:"F 1/18", badges:"1st \u00b7 Course Record" },
+  { race:"Rim to River 100 \u2014 New River Gorge, WV", date:"2025-10-25", dist:"100 Miles", result:"17:15:17", dnf:false, overall:"3/172", div:"F 1/72", badges:"100mi PR \u00b7 Grand Master CR \u00b7 1st" },
+  { race:"Eastern States 100 \u2014 Waterville, PA", date:"2025-08-09", dist:"100 Miles", result:"24:49:36", dnf:false, overall:"4/133", div:"F 1/27", badges:"1st \u00b7 Masters CR" },
+  { race:"Old Dominion 100 \u2014 Woodstock, VA", date:"2025-06-07", dist:"100 Miles", result:"19:10:36", dnf:false, overall:"6/58", div:"F 2/9", badges:"" },
+  { race:"Tiger Claw 50K \u2014 Issaquah, WA", date:"2025-05-10", dist:"50 KM", result:"6:10:32", dnf:false, overall:"20/120", div:"F 3/32", badges:"" },
+  { race:"Falling Water Ultras 100K \u2014 New River Gorge, WV", date:"2025-04-26", dist:"100 KM", result:"11:01:48", dnf:false, overall:"2/73", div:"F 1/20", badges:"1st \u00b7 Masters CR" },
+  { race:"Bull Run Run 50M \u2014 Clifton, VA", date:"2025-04-05", dist:"50 Miles", result:"8:13:41", dnf:false, overall:"5/149", div:"F 1/30", badges:"1st \u00b7 Masters CR" },
+  { race:"Hellgate 100K \u2014 Fincastle, VA", date:"2024-12-14", dist:"100 KM", result:"12:27:15", dnf:false, overall:"15/121", div:"F 2/31", badges:"Masters winner" },
+  { race:"Javelina Jundred 100M \u2014 Fountain Hills, AZ", date:"2024-10-26", dist:"100 Miles", result:"19:45:40", dnf:false, overall:"51/420", div:"F 18/163", badges:"" },
+  { race:"Baker Trail UltraChallenge 50M \u2014 Pittsburgh, PA", date:"2024-08-24", dist:"50 Miles", result:"8:29:48", dnf:false, overall:"3/99", div:"F 1/44", badges:"1st \u00b7 Masters CR" },
+  { race:"Vermont 100 \u2014 West Windsor, VT", date:"2024-07-19", dist:"100 Miles", result:"17:46:48", dnf:false, overall:"6/255", div:"F 2/67", badges:"Masters winner" },
+  { race:"Laurel Highlands 70.5M \u2014 Ohiopyle, PA", date:"2024-06-08", dist:"70.5 Miles", result:"13:16:01", dnf:false, overall:"5/132", div:"F 1/27", badges:"1st \u00b7 female all-time CR \u00b7 Masters CR" },
+  { race:"Massanutten Mountain Trails 100M \u2014 Fort Valley, VA", date:"2024-05-18", dist:"100 Miles", result:"23:22:33", dnf:false, overall:"8/119", div:"F 1/20", badges:"Masters winner" },
+  { race:"Hyner Trail Challenge 50K \u2014 Hyner, PA", date:"2024-04-20", dist:"50 KM", result:"5:33:01", dnf:false, overall:"31/359", div:"F 5/97", badges:"" },
+  { race:"Black Forest 100K \u2014 North Bend, PA", date:"2023-10-01", dist:"100 KM", result:"14:13:21", dnf:false, overall:"6/56", div:"F 1/13", badges:"1st \u00b7 Course Record" },
+  { race:"Boulder Field 100 50K \u2014 Jim Thorpe, PA", date:"2023-09-09", dist:"50 KM", result:"4:49:11", dnf:false, overall:"5/145", div:"F 1/38", badges:"1st \u00b7 Course Record" },
+  { race:"Eastern States 100 \u2014 Waterville, PA", date:"2023-08-12", dist:"100 Miles", result:"26:49:11", dnf:false, overall:"11/131", div:"F 3/21", badges:"Masters winner" },
+  { race:"Worlds End Ultras 100K \u2014 Forksville, PA", date:"2023-06-03", dist:"100 KM", result:"13:54:33", dnf:false, overall:"7/104", div:"F 1/25", badges:"1st  [per-mile splits on file]" },
+  { race:"Hyner Trail Challenge 50K \u2014 Hyner, PA", date:"2023-04-22", dist:"50 KM", result:"5:31:54", dnf:false, overall:"27/343", div:"F 3/85", badges:"" },
+  { race:"HAT Trail Run 50K \u2014 Havre de Grace, MD", date:"2023-03-25", dist:"50 KM", result:"5:00:42", dnf:false, overall:"14/248", div:"F 2/69", badges:"" },
+  { race:"Hellgate 100K \u2014 Fincastle, VA", date:"2022-12-10", dist:"100 KM", result:"14:39:33", dnf:false, overall:"47/119", div:"F 10/30", badges:"" },
+  { race:"Mountain Masochist 50M \u2014 Lynchburg, VA", date:"2022-11-05", dist:"50 Miles", result:"8:58:14", dnf:false, overall:"7/104", div:"F 1/24", badges:"1st" },
+  { race:"Green Monster Trail Challenge 50K \u2014 Wellsboro, PA", date:"2022-10-09", dist:"50 KM", result:"6:00:57", dnf:false, overall:"4/75", div:"F 2/24", badges:"Masters CR" },
+  { race:"Boulder Field 100 50K \u2014 Jim Thorpe, PA", date:"2022-09-10", dist:"50 KM", result:"4:51:36", dnf:false, overall:"11/145", div:"F 1/48", badges:"1st" },
+  { race:"Eastern States 100 \u2014 Waterville, PA", date:"2022-08-13", dist:"100 Miles", result:"26:04:37", dnf:false, overall:"12/121", div:"F 1/17", badges:"1st \u00b7 Masters winner" },
+  { race:"Speedgoat 50K \u2014 Snowbird, UT", date:"2022-07-23", dist:"50 KM", result:"9:37:37", dnf:false, overall:"178/319", div:"F 40/64", badges:"" },
+  { race:"Laurel Highlands 70.5M \u2014 Ohiopyle, PA", date:"2022-06-11", dist:"70.5 Miles", result:"14:07:12", dnf:false, overall:"9/121", div:"F 1/20", badges:"1st" },
+  { race:"Dirty German Endurance Fest 50K \u2014 Philadelphia, PA", date:"2022-05-07", dist:"50 KM", result:"5:09:49", dnf:false, overall:"8/140", div:"F 2/54", badges:"" },
+  { race:"Black Canyon Ultras 100K \u2014 Mayer, AZ", date:"2022-02-12", dist:"100 KM", result:"11:02:37", dnf:false, overall:"62/516", div:"F 19/167", badges:"" },
+  { race:"Naked Nick 50K \u2014 Leesport, PA", date:"2021-12-19", dist:"50 KM", result:"4:52:19", dnf:false, overall:"14/141", div:"F 2/39", badges:"" },
+  { race:"Cayuga Trail 50M \u2014 Ithaca, NY", date:"2021-05-29", dist:"50 Miles", result:"9:00:19", dnf:false, overall:"7/87", div:"F 3/31", badges:"" },
+  { race:"Rattling Creek Run 50K \u2014 Halifax, PA", date:"2021-04-10", dist:"50 KM", result:"5:00:10", dnf:false, overall:"7/70", div:"F 1/22", badges:"1st" },
+  { race:"Naked Nick 50K \u2014 Leesport, PA", date:"2021-01-31", dist:"50 KM", result:"5:05:01", dnf:false, overall:"19/107", div:"F 1/20", badges:"1st" },
+  { race:"Call of the Wilds 50K \u2014 Waterville, PA", date:"2020-10-18", dist:"50 KM", result:"6:01:54", dnf:false, overall:"5/59", div:"F 1/12", badges:"" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2019-10-27", dist:"50 Miles", result:"7:05:54", dnf:false, overall:"9/73", div:"F 3/19", badges:"50mi PR" },
+  { race:"Blues Cruise 50K \u2014 Reading, PA", date:"2019-10-06", dist:"50 KM", result:"4:28:02", dnf:false, overall:"9/354", div:"F 1/129", badges:"" },
+  { race:"Water Gap 50K \u2014 Milford, PA", date:"2019-09-07", dist:"50 KM", result:"4:05:53", dnf:false, overall:"6/90", div:"F 3/37", badges:"50K PR \u00b7 Masters CR" },
+  { race:"Finger Lakes 50s 50K \u2014 Hector, NY", date:"2019-07-06", dist:"50 KM", result:"5:03:32", dnf:false, overall:"4/140", div:"F 1/45", badges:"1st" },
+  { race:"Cayuga Trail 50M \u2014 Ithaca, NY", date:"2019-06-01", dist:"50 Miles", result:"8:52:25", dnf:false, overall:"8/99", div:"F 1/25", badges:"1st" },
+  { race:"Iron Mines 50K \u2014 Ringwood, NJ", date:"2019-05-11", dist:"50 KM", result:"7:40:00", dnf:false, overall:"8/33", div:"F 2/8", badges:"" },
+  { race:"HAT Trail Run 50K \u2014 Havre de Grace, MD", date:"2019-03-23", dist:"50 KM", result:"4:36:50", dnf:false, overall:"8/356", div:"F 1/109", badges:"" },
+  { race:"Grindstone 100 \u2014 Augusta County, VA", date:"2018-10-05", dist:"100 Miles", result:"23:23:58", dnf:false, overall:"13/207", div:"F 2/32", badges:"1st" },
+  { race:"KTA Trail Challenge 40K \u2014 Airville, PA", date:"2018-09-08", dist:"40 KM", result:"4:18:30", dnf:false, overall:"8/172", div:"F 1/48", badges:"" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2017-10-08", dist:"50 Miles", result:"7:15:01", dnf:false, overall:"9/45", div:"F 2/11", badges:"" },
+  { race:"Green Lakes Endurance Runs 50K \u2014 Fayetteville, NY", date:"2017-08-27", dist:"50 KM", result:"4:10:59", dnf:false, overall:"7/77", div:"F 2/31", badges:"" },
+  { race:"HAT Trail Run 50K \u2014 Havre de Grace, MD", date:"2017-03-25", dist:"50 KM", result:"4:51:39", dnf:false, overall:"13/334", div:"F 1/123", badges:"" },
+  { race:"Tussey Mountainback 50M \u2014 Boalsburg, PA", date:"2016-10-30", dist:"50 Miles", result:"7:09:59", dnf:false, overall:"11/92", div:"F 2/33", badges:"" },
+  { race:"Blues Cruise 50K \u2014 Reading, PA", date:"2016-10-02", dist:"50 KM", result:"4:18:48", dnf:false, overall:"5/308", div:"F 1/124", badges:"1st" },
+  { race:"Green Lakes Endurance Runs 100K \u2014 Fayetteville, NY", date:"2016-08-06", dist:"100 KM", result:"10:00:18", dnf:false, overall:"1/8", div:"F 1/2", badges:"100K PR \u00b7 1st overall" },
+  { race:"Bryce Canyon 50K \u2014 Bryce Canyon, UT", date:"2016-06-17", dist:"50 KM", result:"6:08:41", dnf:false, overall:"4/154", div:"F 1/74", badges:"" },
+  { race:"On The Rocks Trail Runs 45K \u2014 York, PA", date:"2015-08-01", dist:"45 KM", result:"5:02:09", dnf:false, overall:"4/22", div:"F 1/6", badges:"" }
+];
+const PREFILL_NOTES = "PHYSIOLOGY BLOCK IS EMPTY \u2014 needs Justyna's input or Strava/Garmin sync (same path as garmin/garmin_sync.py). Current engine profile was derived from race RESULTS only (CS 4:15/km; climb_skill 1.20; descent_skill 1.05 post-Manitou). PRs: 100mi 17:15:17 (Rim to River 2025) \u00b7 100K 10:00:18 (2016) \u00b7 50mi 7:05:54 (2019) \u00b7 50K 4:05:53 (2019). Age 51 (F51), Fairless Hills PA, ER nurse. 52 races over 10y8m, 2,693 lifetime miles. Source: UltraRunning.com calendar (verified) + Manitou 2026 added manually (not yet in UltraRunning DB). 2025 Eastern States finish confirmed as 24:49:36 (corrected 2026-06-23; supersedes earlier 24:39:37). Fill Conditions / Best-recent-effort / CTL / Fueling per race where known to tighten calibration.";
+
+function el(tag, attrs = {}, children = []) {
+  const e = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v]) => {
+    if (k === 'class') e.className = v;
+    else if (k === 'value') e.value = v;
+    else if (k === 'text') e.textContent = v;
+    else e.setAttribute(k, v);
+  });
+  children.forEach(c => e.appendChild(c));
+  return e;
+}
+
+function renderRows() {
+  const tbody = document.getElementById('rows');
+  tbody.innerHTML = '';
+  RACES.forEach((r, i) => {
+    const tr = document.createElement('tr');
+    if (r.dnf) tr.className = 'dnf';
+    const tdRace = el('td', { class:'race-name' });
+    tdRace.textContent = r.race + (r.dnf ? '  (DNF)' : '');
+    if (r.badges) { const b = el('div', { class:'badges', text:r.badges }); tdRace.appendChild(b); }
+    tr.appendChild(tdRace);
+    tr.appendChild(el('td', { class:'date', text:r.date }));
+    tr.appendChild(el('td', { text:r.dist }));
+    tr.appendChild(el('td', { text:r.result }));
+    tr.appendChild(el('td', { text:r.overall }));
+    tr.appendChild(el('td', { text:r.div }));
+    const tdCond = el('td'); tdCond.appendChild(el('input', { 'data-field':'conditions','data-idx':i, placeholder:'65–85°F, 75% RH' })); tr.appendChild(tdCond);
+    const tdEff = el('td'); tdEff.appendChild(el('input', { 'data-field':'effort','data-idx':i, placeholder:'5K 22:00 (date)' })); tr.appendChild(tdEff);
+    const tdCtl = el('td'); const sel = document.createElement('select'); sel.dataset.field='ctl'; sel.dataset.idx=i;
+    ['','Peak','In shape','Undertrained','Detrained'].forEach(o => { const opt=document.createElement('option'); opt.value=o; opt.text=o||'—'; sel.appendChild(opt); });
+    tdCtl.appendChild(sel); tr.appendChild(tdCtl);
+    const tdFuel = el('td'); tdFuel.appendChild(el('input', { 'data-field':'fueling','data-idx':i, placeholder:'500ml/hr, 70g/hr  or  N - Good' })); tr.appendChild(tdFuel);
+    tbody.appendChild(tr);
+  });
+}
+
+function readInputs() {
+  const races = RACES.map(r => ({ ...r, conditions:'', effort:'', ctl:'', fueling:'' }));
+  document.querySelectorAll('[data-field]').forEach(elx => { races[+elx.dataset.idx][elx.dataset.field] = elx.value; });
+  const athlete = { vo2max_now:val('vo2-now'), vo2max_3mo_ago:val('vo2-3mo'), vo2max_peak:val('vo2-peak'),
+    lactate_threshold:val('lt'), critical_power:val('cp'), weight_kg:val('weight'),
+    home_altitude_m:val('home-alt'), resting_hr:val('rhr'), max_hr:val('maxhr') };
+  return { athlete, races, notes:val('notes') };
+}
+function val(id) { return document.getElementById(id).value; }
+
+function exportJSON() {
+  const data = readInputs();
+  const blob = new Blob([JSON.stringify(data,null,2)], { type:'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'justyna-race-history-' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+  const out = document.getElementById('output'); out.textContent = JSON.stringify(data,null,2);
+  out.style.display = 'block'; window.scrollTo({ top: out.offsetTop, behavior:'smooth' });
+}
+function exportCSV() {
+  const d = readInputs();
+  const cols = ['race','date','dist','result','overall','div','conditions','effort','ctl','fueling'];
+  const csv = cols.join(',') + '\n' + d.races.map(r => cols.map(c => '"' + (r[c]||'').toString().replace(/"/g,'""') + '"').join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'justyna-race-history-' + new Date().toISOString().slice(0,10) + '.csv'; a.click();
+}
+function saveLocal() { localStorage.setItem('jw_race_history', JSON.stringify(readInputs())); alert('Saved to browser localStorage.'); }
+function loadLocal() {
+  const s = localStorage.getItem('jw_race_history'); if (!s) { alert('No saved data found.'); return; }
+  const d = JSON.parse(s);
+  d.races.forEach((r,i) => ['conditions','effort','ctl','fueling'].forEach(f => { const e=document.querySelector(`[data-field="${f}"][data-idx="${i}"]`); if(e) e.value=r[f]||''; }));
+  if (d.athlete) { const map={vo2max_now:'vo2-now',vo2max_3mo_ago:'vo2-3mo',vo2max_peak:'vo2-peak',lactate_threshold:'lt',critical_power:'cp',weight_kg:'weight',home_altitude_m:'home-alt',resting_hr:'rhr',max_hr:'maxhr'};
+    Object.entries(d.athlete).forEach(([k,v]) => { const id=map[k]; if(id) document.getElementById(id).value=v; }); }
+  if (d.notes) document.getElementById('notes').value = d.notes;
+}
+
+renderRows();
+document.getElementById('notes').value = PREFILL_NOTES;
+window.addEventListener('DOMContentLoaded', () => { if (localStorage.getItem('jw_race_history')) { try { loadLocal(); } catch(e) { console.warn(e); } } });
+let _t=null;
+document.body.addEventListener('input', () => { clearTimeout(_t); _t=setTimeout(() => { localStorage.setItem('jw_race_history', JSON.stringify(readInputs()));
+  const ind=document.getElementById('save-indicator'); if(ind){ ind.textContent='Saved '+new Date().toLocaleTimeString(); ind.style.opacity='1'; setTimeout(()=>ind.style.opacity='0.4',1500); } }, 400); });
+document.body.addEventListener('change', () => { clearTimeout(_t); _t=setTimeout(() => localStorage.setItem('jw_race_history', JSON.stringify(readInputs())), 200); });
+</script>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
